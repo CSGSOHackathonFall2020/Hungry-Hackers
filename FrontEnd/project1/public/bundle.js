@@ -47,6 +47,8 @@ var Nav = function (_React$Component2) {
     _createClass(Nav, [{
         key: "render",
         value: function render() {
+            var _this3 = this;
+
             return React.createElement(
                 "div",
                 { "class": "topnav" },
@@ -57,18 +59,20 @@ var Nav = function (_React$Component2) {
                 ),
                 React.createElement(
                     "a",
-                    { href: "#" },
+                    { onClick: function onClick() {
+                            return _this3.props.handleLogOut();
+                        } },
                     "Log out"
                 ),
                 React.createElement(
                     "a",
                     { href: "#" },
-                    "Link"
+                    "Homepage"
                 ),
                 React.createElement(
                     "a",
                     { href: "#" },
-                    "Link"
+                    "Memes"
                 )
             );
         }
@@ -158,27 +162,99 @@ var Solution = function (_React$Component5) {
     return Solution;
 }(React.Component);
 
-var App = function (_React$Component6) {
-    _inherits(App, _React$Component6);
+var Homepage_header = function (_React$Component6) {
+    _inherits(Homepage_header, _React$Component6);
+
+    function Homepage_header() {
+        _classCallCheck(this, Homepage_header);
+
+        return _possibleConstructorReturn(this, (Homepage_header.__proto__ || Object.getPrototypeOf(Homepage_header)).apply(this, arguments));
+    }
+
+    _createClass(Homepage_header, [{
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "div",
+                { "class": "header" },
+                React.createElement(
+                    "h1",
+                    null,
+                    "SoCYety Homepage"
+                ),
+                React.createElement(
+                    "h2",
+                    null,
+                    "What would you like to do?"
+                )
+            );
+        }
+    }]);
+
+    return Homepage_header;
+}(React.Component);
+
+var Homepage_body = function (_React$Component7) {
+    _inherits(Homepage_body, _React$Component7);
+
+    function Homepage_body() {
+        _classCallCheck(this, Homepage_body);
+
+        return _possibleConstructorReturn(this, (Homepage_body.__proto__ || Object.getPrototypeOf(Homepage_body)).apply(this, arguments));
+    }
+
+    _createClass(Homepage_body, [{
+        key: "render",
+        value: function render() {
+            return React.createElement("div", null);
+        }
+    }]);
+
+    return Homepage_body;
+}(React.Component);
+
+var Memes = function (_React$Component8) {
+    _inherits(Memes, _React$Component8);
+
+    function Memes() {
+        _classCallCheck(this, Memes);
+
+        return _possibleConstructorReturn(this, (Memes.__proto__ || Object.getPrototypeOf(Memes)).apply(this, arguments));
+    }
+
+    _createClass(Memes, [{
+        key: "render",
+        value: function render() {
+            return React.createElement("div", null);
+        }
+    }]);
+
+    return Memes;
+}(React.Component);
+
+var App = function (_React$Component9) {
+    _inherits(App, _React$Component9);
 
     function App(props) {
         _classCallCheck(this, App);
 
-        var _this6 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+        var _this10 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this6.state = {
+        _this10.state = {
             netID: '',
             password: '',
             error: '',
-            login_success: false
+            login_success: false,
+            hw: false,
+            memes: false
         };
 
-        _this6.dismissError = _this6.dismissError.bind(_this6);
-        _this6.handleSubmit = _this6.handleSubmit.bind(_this6);
-        _this6.handlePassChange = _this6.handlePassChange.bind(_this6);
-        _this6.handleNetIDChange = _this6.handleNetIDChange.bind(_this6);
-        _this6.handleLogOut = _this6.handleLogOut.bind(_this6);
-        return _this6;
+        _this10.dismissError = _this10.dismissError.bind(_this10);
+        _this10.handleSubmit = _this10.handleSubmit.bind(_this10);
+        _this10.handlePassChange = _this10.handlePassChange.bind(_this10);
+        _this10.handleNetIDChange = _this10.handleNetIDChange.bind(_this10);
+        _this10.handleLogOut = _this10.handleLogOut.bind(_this10);
+        return _this10;
     }
 
     _createClass(App, [{
@@ -223,6 +299,14 @@ var App = function (_React$Component6) {
         key: "render",
         value: function render() {
             if (this.state.login_success) {
+                return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(Homepage_header, null)
+                );
+            }
+
+            if (this.state.hw) {
                 return React.createElement(
                     "div",
                     null,

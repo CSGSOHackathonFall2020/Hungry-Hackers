@@ -12,9 +12,9 @@ class Nav extends React.Component {
         return (
             <div class="topnav">
                 <a>Navigation bar</a>
-                <a href="#">Log out</a>
-                <a href="#">Link</a>
-                <a href="#">Link</a>
+                <a onClick={() => this.props.handleLogOut()}>Log out</a>
+                <a href="#">Homepage</a>
+                <a href="#">Memes</a>
             </div>
         );
     }
@@ -50,6 +50,37 @@ class Solution extends React.Component {
     }
 }
 
+class Homepage_header extends React.Component {
+    render(){
+        return (
+            <div class="header">
+                <h1>SoCYety Homepage</h1>
+                <h2>What would you like to do?</h2>
+            </div>
+        );
+    }
+}
+
+class Homepage_body extends React.Component {
+    render(){
+        return (
+            <div>
+
+            </div>
+        );
+    }
+}
+
+class Memes extends React.Component {
+    render(){
+        return (
+            <div>
+
+            </div>
+        );
+    }
+}
+
 class App extends React.Component{
     constructor(props){
         super(props);
@@ -59,6 +90,8 @@ class App extends React.Component{
             password: '',
             error: '',
             login_success: false,
+            hw: false,
+            memes: false,
         };
 
         this.dismissError = this.dismissError.bind(this);
@@ -105,6 +138,15 @@ class App extends React.Component{
 
     render(){
         if(this.state.login_success){
+            return(
+                <div>
+                    <Homepage_header/>
+
+                </div>
+            );
+        }
+
+        if(this.state.hw){
             return(
                 <div>
                     <Header />
