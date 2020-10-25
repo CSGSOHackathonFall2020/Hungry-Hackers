@@ -100,3 +100,12 @@ div.a{
 .row li:hover{
     background-color: darkslategray;
 }
+
+.button{
+    background-color: #C8102E;
+    color: white;
+    float:left;
+    text-align: center;
+    padding: 1%;
+    cursor: pointer;
+}

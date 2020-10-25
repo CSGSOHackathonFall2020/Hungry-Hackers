@@ -23,7 +23,7 @@ class Nav extends React.Component {
                 </a>
                 <a onClick={() => this.props.handleLogOut()}>Log out</a>
                 <a onClick={() => this.props.handleHomepage()}>Homepage</a>
-                <a href="#">Memes</a>
+                <a onClick={() => this.props.handleMemes()}>Memes</a>
             </div>
         );
     }
@@ -78,6 +78,7 @@ class Homepage_body extends React.Component {
                     <li onClick={() => this.props.handleAS()}>Assignments and solutions</li>
                     <li onClick={() => this.props.handleMemes()}>Memes</li>
                     <li onClick={() => alert("I got nothing for you, sorry!")}>Learn something new</li>
+                    <li onClick={() => this.props.handleLogOut()}>Log Out</li>
                 </ul>
             </div>
         );
@@ -88,7 +89,10 @@ class Memes extends React.Component {
     render(){
         return (
             <div>
-
+                <h1 class="header">Enjoy and have a wonderful day!</h1>
+                <button class="button" onClick={() => this.props.handleGoBack()}>Back</button>
+                <img src="lukememe.jpeg" alt="luke meme" width="300" height="500" />
+                <img src="susmeme.jpeg" alt="sus meme" width="500" height="300" />
             </div>
         );
     }
@@ -113,6 +117,9 @@ class App extends React.Component{
         this.handleNetIDChange = this.handleNetIDChange.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleAS = this.handleAS.bind(this);
+        this.handleHomepage = this.handleHomepage.bind(this);
+        this.handleMemes = this.handleMemes.bind(this);
+        this.handleGoBack = this.handleGoBack.bind(this);
     }
 
     dismissError(){
@@ -154,10 +161,16 @@ class App extends React.Component{
 
     handleAS(){
         this.setState({hw: true});
+        this.setState({memes: false});
     }
 
     handleMemes(){
+        this.setState({hw: false});
         this.setState({memes: true});
+    }
+
+    handleGoBack(){
+        this.setState({memes: false});
     }
 
     handleHomepage(){
@@ -166,11 +179,18 @@ class App extends React.Component{
     }
 
     render(){
+        if(this.state.memes && this.state.login_success){
+            return(
+                <div>
+                    <Memes handleGoBack={this.handleGoBack}/>
+                </div>
+            );
+        }
         if(this.state.hw && this.state.login_success){
             return(
                 <div>
                     <Header />
-                    <Nav handleLogOut={this.handleLogOut} handleHomepage={this.handleHomepage}/>
+                    <Nav handleLogOut={this.handleLogOut} handleHomepage={this.handleHomepage} handleMemes={this.handleMemes}/>
                     <Homework />
                     <Solution />
                     <Comments />
@@ -181,7 +201,7 @@ class App extends React.Component{
             return(
                 <div>
                     <Homepage_header/>
-                    <Homepage_body handleAS={this.handleAS} handleMemes={this.handleMemes}/>
+                    <Homepage_body handleLogOut={this.handleLogOut} handleAS={this.handleAS} handleMemes={this.handleMemes}/>
                 </div>
             );
         }

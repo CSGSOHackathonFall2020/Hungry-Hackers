@@ -100,7 +100,9 @@ var Nav = function (_React$Component2) {
                 ),
                 React.createElement(
                     "a",
-                    { href: "#" },
+                    { onClick: function onClick() {
+                            return _this3.props.handleMemes();
+                        } },
                     "Memes"
                 )
             );
@@ -263,6 +265,13 @@ var Homepage_body = function (_React$Component7) {
                                 return alert("I got nothing for you, sorry!");
                             } },
                         "Learn something new"
+                    ),
+                    React.createElement(
+                        "li",
+                        { onClick: function onClick() {
+                                return _this9.props.handleLogOut();
+                            } },
+                        "Log Out"
                     )
                 )
             );
@@ -284,7 +293,26 @@ var Memes = function (_React$Component8) {
     _createClass(Memes, [{
         key: "render",
         value: function render() {
-            return React.createElement("div", null);
+            var _this11 = this;
+
+            return React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "h1",
+                    { "class": "header" },
+                    "Enjoy and have a wonderful day!"
+                ),
+                React.createElement(
+                    "button",
+                    { "class": "button", onClick: function onClick() {
+                            return _this11.props.handleGoBack();
+                        } },
+                    "Back"
+                ),
+                React.createElement("img", { src: "lukememe.jpeg", alt: "luke meme", width: "300", height: "500" }),
+                React.createElement("img", { src: "susmeme.jpeg", alt: "sus meme", width: "500", height: "300" })
+            );
         }
     }]);
 
@@ -297,9 +325,9 @@ var App = function (_React$Component9) {
     function App(props) {
         _classCallCheck(this, App);
 
-        var _this11 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+        var _this12 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this11.state = {
+        _this12.state = {
             netID: '',
             password: '',
             error: '',
@@ -308,13 +336,16 @@ var App = function (_React$Component9) {
             memes: false
         };
 
-        _this11.dismissError = _this11.dismissError.bind(_this11);
-        _this11.handleSubmit = _this11.handleSubmit.bind(_this11);
-        _this11.handlePassChange = _this11.handlePassChange.bind(_this11);
-        _this11.handleNetIDChange = _this11.handleNetIDChange.bind(_this11);
-        _this11.handleLogOut = _this11.handleLogOut.bind(_this11);
-        _this11.handleAS = _this11.handleAS.bind(_this11);
-        return _this11;
+        _this12.dismissError = _this12.dismissError.bind(_this12);
+        _this12.handleSubmit = _this12.handleSubmit.bind(_this12);
+        _this12.handlePassChange = _this12.handlePassChange.bind(_this12);
+        _this12.handleNetIDChange = _this12.handleNetIDChange.bind(_this12);
+        _this12.handleLogOut = _this12.handleLogOut.bind(_this12);
+        _this12.handleAS = _this12.handleAS.bind(_this12);
+        _this12.handleHomepage = _this12.handleHomepage.bind(_this12);
+        _this12.handleMemes = _this12.handleMemes.bind(_this12);
+        _this12.handleGoBack = _this12.handleGoBack.bind(_this12);
+        return _this12;
     }
 
     _createClass(App, [{
@@ -361,11 +392,18 @@ var App = function (_React$Component9) {
         key: "handleAS",
         value: function handleAS() {
             this.setState({ hw: true });
+            this.setState({ memes: false });
         }
     }, {
         key: "handleMemes",
         value: function handleMemes() {
+            this.setState({ hw: false });
             this.setState({ memes: true });
+        }
+    }, {
+        key: "handleGoBack",
+        value: function handleGoBack() {
+            this.setState({ memes: false });
         }
     }, {
         key: "handleHomepage",
@@ -376,12 +414,19 @@ var App = function (_React$Component9) {
     }, {
         key: "render",
         value: function render() {
+            if (this.state.memes && this.state.login_success) {
+                return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(Memes, { handleGoBack: this.handleGoBack })
+                );
+            }
             if (this.state.hw && this.state.login_success) {
                 return React.createElement(
                     "div",
                     null,
                     React.createElement(Header, null),
-                    React.createElement(Nav, { handleLogOut: this.handleLogOut, handleHomepage: this.handleHomepage }),
+                    React.createElement(Nav, { handleLogOut: this.handleLogOut, handleHomepage: this.handleHomepage, handleMemes: this.handleMemes }),
                     React.createElement(Homework, null),
                     React.createElement(Solution, null),
                     React.createElement(Comments, null)
@@ -392,7 +437,7 @@ var App = function (_React$Component9) {
                     "div",
                     null,
                     React.createElement(Homepage_header, null),
-                    React.createElement(Homepage_body, { handleAS: this.handleAS, handleMemes: this.handleMemes })
+                    React.createElement(Homepage_body, { handleLogOut: this.handleLogOut, handleAS: this.handleAS, handleMemes: this.handleMemes })
                 );
             }
             return React.createElement(
