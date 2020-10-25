@@ -77,7 +77,7 @@ class Homepage_body extends React.Component {
                 <ul>
                     <li onClick={() => this.props.handleAS()}>Assignments and solutions</li>
                     <li onClick={() => this.props.handleMemes()}>Memes</li>
-                    <li onClick={() => alert("I got nothing for you, sorry!")}>Learn something new</li>
+                    <li onClick={() => alert("Did you know that Kangaroos can't fart?")}>Learn something new</li>
                     <li onClick={() => this.props.handleLogOut()}>Log Out</li>
                 </ul>
             </div>

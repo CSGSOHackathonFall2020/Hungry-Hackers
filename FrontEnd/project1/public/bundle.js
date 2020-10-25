@@ -262,7 +262,7 @@ var Homepage_body = function (_React$Component7) {
                     React.createElement(
                         "li",
                         { onClick: function onClick() {
-                                return alert("I got nothing for you, sorry!");
+                                return alert("Did you know that Kangaroos can't fart?");
                             } },
                         "Learn something new"
                     ),
