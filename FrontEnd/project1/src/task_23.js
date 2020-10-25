@@ -11,9 +11,18 @@ class Nav extends React.Component {
     render() {
         return (
             <div class="topnav">
-                <a>Navigation bar</a>
+                <a>
+                    <form>
+                        <select>
+                            <option>COM S 363</option>
+                            <option>AMD 165</option>
+                            <option>Class 3</option>
+                            <option>Class 4</option>
+                        </select>
+                    </form>
+                </a>
                 <a onClick={() => this.props.handleLogOut()}>Log out</a>
-                <a href="#">Homepage</a>
+                <a onClick={() => this.props.handleHomepage()}>Homepage</a>
                 <a href="#">Memes</a>
             </div>
         );
@@ -64,8 +73,12 @@ class Homepage_header extends React.Component {
 class Homepage_body extends React.Component {
     render(){
         return (
-            <div>
-
+            <div class="row">
+                <ul>
+                    <li onClick={() => this.props.handleAS()}>Assignments and solutions</li>
+                    <li onClick={() => this.props.handleMemes()}>Memes</li>
+                    <li onClick={() => alert("I got nothing for you, sorry!")}>Learn something new</li>
+                </ul>
             </div>
         );
     }
@@ -99,6 +112,7 @@ class App extends React.Component{
         this.handlePassChange = this.handlePassChange.bind(this);
         this.handleNetIDChange = this.handleNetIDChange.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
+        this.handleAS = this.handleAS.bind(this);
     }
 
     dismissError(){
@@ -134,26 +148,40 @@ class App extends React.Component{
 
     handleLogOut(){
         this.setState({login_success: false});
+        this.setState({hw: false});
+        this.setState({memes: false});
+    }
+
+    handleAS(){
+        this.setState({hw: true});
+    }
+
+    handleMemes(){
+        this.setState({memes: true});
+    }
+
+    handleHomepage(){
+        this.setState({hw: false});
+        this.setState({memes: false});
     }
 
     render(){
-        if(this.state.login_success){
-            return(
-                <div>
-                    <Homepage_header/>
-
-                </div>
-            );
-        }
-
-        if(this.state.hw){
+        if(this.state.hw && this.state.login_success){
             return(
                 <div>
                     <Header />
-                    <Nav handleLogOut={this.handleLogOut}/>
+                    <Nav handleLogOut={this.handleLogOut} handleHomepage={this.handleHomepage}/>
                     <Homework />
                     <Solution />
                     <Comments />
+                </div>
+            );
+        }
+        if(this.state.login_success && !this.state.hw && !this.state.memes){
+            return(
+                <div>
+                    <Homepage_header/>
+                    <Homepage_body handleAS={this.handleAS} handleMemes={this.handleMemes}/>
                 </div>
             );
         }

@@ -55,7 +55,34 @@ var Nav = function (_React$Component2) {
                 React.createElement(
                     "a",
                     null,
-                    "Navigation bar"
+                    React.createElement(
+                        "form",
+                        null,
+                        React.createElement(
+                            "select",
+                            null,
+                            React.createElement(
+                                "option",
+                                null,
+                                "COM S 363"
+                            ),
+                            React.createElement(
+                                "option",
+                                null,
+                                "AMD 165"
+                            ),
+                            React.createElement(
+                                "option",
+                                null,
+                                "Class 3"
+                            ),
+                            React.createElement(
+                                "option",
+                                null,
+                                "Class 4"
+                            )
+                        )
+                    )
                 ),
                 React.createElement(
                     "a",
@@ -66,7 +93,9 @@ var Nav = function (_React$Component2) {
                 ),
                 React.createElement(
                     "a",
-                    { href: "#" },
+                    { onClick: function onClick() {
+                            return _this3.props.handleHomepage();
+                        } },
                     "Homepage"
                 ),
                 React.createElement(
@@ -206,7 +235,37 @@ var Homepage_body = function (_React$Component7) {
     _createClass(Homepage_body, [{
         key: "render",
         value: function render() {
-            return React.createElement("div", null);
+            var _this9 = this;
+
+            return React.createElement(
+                "div",
+                { "class": "row" },
+                React.createElement(
+                    "ul",
+                    null,
+                    React.createElement(
+                        "li",
+                        { onClick: function onClick() {
+                                return _this9.props.handleAS();
+                            } },
+                        "Assignments and solutions"
+                    ),
+                    React.createElement(
+                        "li",
+                        { onClick: function onClick() {
+                                return _this9.props.handleMemes();
+                            } },
+                        "Memes"
+                    ),
+                    React.createElement(
+                        "li",
+                        { onClick: function onClick() {
+                                return alert("I got nothing for you, sorry!");
+                            } },
+                        "Learn something new"
+                    )
+                )
+            );
         }
     }]);
 
@@ -238,9 +297,9 @@ var App = function (_React$Component9) {
     function App(props) {
         _classCallCheck(this, App);
 
-        var _this10 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+        var _this11 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this10.state = {
+        _this11.state = {
             netID: '',
             password: '',
             error: '',
@@ -249,12 +308,13 @@ var App = function (_React$Component9) {
             memes: false
         };
 
-        _this10.dismissError = _this10.dismissError.bind(_this10);
-        _this10.handleSubmit = _this10.handleSubmit.bind(_this10);
-        _this10.handlePassChange = _this10.handlePassChange.bind(_this10);
-        _this10.handleNetIDChange = _this10.handleNetIDChange.bind(_this10);
-        _this10.handleLogOut = _this10.handleLogOut.bind(_this10);
-        return _this10;
+        _this11.dismissError = _this11.dismissError.bind(_this11);
+        _this11.handleSubmit = _this11.handleSubmit.bind(_this11);
+        _this11.handlePassChange = _this11.handlePassChange.bind(_this11);
+        _this11.handleNetIDChange = _this11.handleNetIDChange.bind(_this11);
+        _this11.handleLogOut = _this11.handleLogOut.bind(_this11);
+        _this11.handleAS = _this11.handleAS.bind(_this11);
+        return _this11;
     }
 
     _createClass(App, [{
@@ -294,27 +354,45 @@ var App = function (_React$Component9) {
         key: "handleLogOut",
         value: function handleLogOut() {
             this.setState({ login_success: false });
+            this.setState({ hw: false });
+            this.setState({ memes: false });
+        }
+    }, {
+        key: "handleAS",
+        value: function handleAS() {
+            this.setState({ hw: true });
+        }
+    }, {
+        key: "handleMemes",
+        value: function handleMemes() {
+            this.setState({ memes: true });
+        }
+    }, {
+        key: "handleHomepage",
+        value: function handleHomepage() {
+            this.setState({ hw: false });
+            this.setState({ memes: false });
         }
     }, {
         key: "render",
         value: function render() {
-            if (this.state.login_success) {
-                return React.createElement(
-                    "div",
-                    null,
-                    React.createElement(Homepage_header, null)
-                );
-            }
-
-            if (this.state.hw) {
+            if (this.state.hw && this.state.login_success) {
                 return React.createElement(
                     "div",
                     null,
                     React.createElement(Header, null),
-                    React.createElement(Nav, { handleLogOut: this.handleLogOut }),
+                    React.createElement(Nav, { handleLogOut: this.handleLogOut, handleHomepage: this.handleHomepage }),
                     React.createElement(Homework, null),
                     React.createElement(Solution, null),
                     React.createElement(Comments, null)
+                );
+            }
+            if (this.state.login_success && !this.state.hw && !this.state.memes) {
+                return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(Homepage_header, null),
+                    React.createElement(Homepage_body, { handleAS: this.handleAS, handleMemes: this.handleMemes })
                 );
             }
             return React.createElement(
