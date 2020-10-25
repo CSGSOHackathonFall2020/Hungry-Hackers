@@ -1,2 +1,2 @@
 # Hungry-Hackers
-Simple front end code for a webpage desgined for ISU students where they can post questions and solutions related to their assignments. Front end code uses React.js. Open index.html to view the webpage.
+Simple front end code for a webpage desgined for ISU students where they can post questions and solutions related to their assignments. Front end code uses React.js. Open index.html to view the webpage and enter anything for net id and password then press log in. The sign up button doesn't do anything.
